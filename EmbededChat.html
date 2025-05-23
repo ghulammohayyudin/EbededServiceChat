@@ -1,21 +1,29 @@
+<!DOCTYPE html>
 <html>
-<script type='text/javascript'>
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+<head>
+    <title>Start Embedded Messaging</title>
+    <script type="text/javascript">
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'en_US'; // Set language
 
-			embeddedservice_bootstrap.init(
-				'00DPt000006sG4h',
-				'Messaging_hughesdrivertraining_co_uk',
-				'https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213',
-				{
-					scrt2URL: 'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
-</script>
-<script type='text/javascript' src='https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+                embeddedservice_bootstrap.init(
+                    '00DPt000006sG4h',
+                    'Messaging_hughesdrivertraining_co_uk',
+                    'https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213',
+                    {
+                        scrt2URL: 'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="initEmbeddedMessaging()">Start Chat</button>
+
+    <script type="text/javascript" src="https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213/assets/js/bootstrap.min.js"></script>
+</body>
 </html>
