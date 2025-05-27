@@ -1,33 +1,64 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <title>Start Embedded Messaging</title>
-    <script type="text/javascript">
-        function initEmbeddedMessaging() {
-            try {
-                embeddedservice_bootstrap.settings.language = 'en_US';
+    <style type='text/css'>
+	.embeddedServiceHelpButton .helpButton .uiButton {
+		background-color: #005290;
+		font-family: "Arial", sans-serif;
+	}
+	.embeddedServiceHelpButton .helpButton .uiButton:focus {
+		outline: 1px solid #005290;
+	}
+</style>
 
-                embeddedservice_bootstrap.init(
-                    '00DPt000006sG4h',
-                    'Messaging_hughesdrivertraining_co_uk',
-                    'https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213',
-                    {
-                        scrt2URL: 'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce-scrt.com'
-                    }
-                );
-            } catch (err) {
-                console.error('Error loading Embedded Messaging:', err);
-            }
-        }
-    </script>
-</head>
-<body>
-    <button id="startChatButton" onclick="initEmbeddedMessaging()">Start Chat</button>
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+	var initESW = function(gslbBaseURL) {
+		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
 
-    <script 
-        type="text/javascript" 
-        src="https://hughesdrivertraining--lwccompon.sandbox.my.site.com/ESWMessaginghughesdriver1742828700213/assets/js/bootstrap.min.js" 
-        >
-    </script>
-</body>
+		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
+		//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+
+		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+		//embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+		// Settings for Chat
+		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+			// Returns a valid button ID.
+		//};
+		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+
+		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+		embedded_svc.settings.entryFeature = 'LiveAgent';
+
+		embedded_svc.init(
+			'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce.com',
+			'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce-sites.com/mercury',
+			gslbBaseURL,
+			'00DPt000006sG4h',
+			'Agent',
+			{
+				baseLiveAgentContentURL: 'https://c.la12s-core1.sfdc-5pakla.salesforceliveagent.com/content',
+				deploymentId: '572Pt000004r3zx',
+				buttonId: '573Pt0000010wuf',
+				baseLiveAgentURL: 'https://d.la12s-core1.sfdc-5pakla.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'Agent',
+				isOfflineSupportEnabled: true
+			}
+		);
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://hughesdrivertraining--lwccompon.sandbox.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+</script>
 </html>
